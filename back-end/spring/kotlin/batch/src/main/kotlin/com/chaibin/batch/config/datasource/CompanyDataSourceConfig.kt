@@ -25,6 +25,7 @@ import javax.sql.DataSource
 @EnableConfigurationProperties(value = [CompanyDatasourceProperties::class])
 class CompanyDataSourceConfig(val companyDatasourceProperties: CompanyDatasourceProperties) {
 
+    @Primary
     @Bean("dataSource")
     fun companyDataSource(): DataSource {
         return HikariDataSource().apply {

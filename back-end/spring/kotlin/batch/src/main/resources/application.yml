@@ -2,8 +2,14 @@ spring:
   batch:
     job:
       enabled: true
-      name: employeeJobCase2
 
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+    root: debug
 
 datasource:
   company:

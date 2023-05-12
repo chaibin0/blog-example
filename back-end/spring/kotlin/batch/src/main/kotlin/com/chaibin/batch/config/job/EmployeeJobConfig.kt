@@ -74,41 +74,41 @@ class EmployeeJobConfig : DefaultBatchConfiguration() {
             it.items.forEach { e -> e.changeApplied() }
         }
     }
-
-    // RepositoryItemReader를 사용
-    @Bean
-    public fun employeeJobCase2(
-        jobRepository: JobRepository,
-        employeeFlowCase2: Step
-    ): Job {
-        return JobBuilder("employeeJobCase2", jobRepository)
-            .start(employeeFlowCase2)
-            .build()
-    }
-
-    @Bean
-    public fun employeeFlowCase2(
-        jobRepository: JobRepository,
-        platformTransactionManager: PlatformTransactionManager,
-        employeeRepositoryItemReader: ItemReader<Employee>,
-        itemWriter: ItemWriter<Employee>
-    ): Step {
-        return StepBuilder("employeeStepCase1", jobRepository)
-            .chunk<Employee, Employee>(1000, platformTransactionManager)
-            .reader(employeeRepositoryItemReader)
-            .writer(itemWriter)
-            .build()
-    }
-
-
-    @Bean
-    public fun employeeRepositoryItemReader(employeeRepository: EmployeeRepository): ItemReader<Employee> {
-        return RepositoryItemReaderBuilder<Employee>()
-            .name("employeeRepositoryItemReader")
-            .repository(employeeRepository)
-            .methodName("findEmployee")
-            .sorts(mutableMapOf("id" to Sort.Direction.ASC))
-            .pageSize(10)
-            .build()
-    }
+//
+//    // RepositoryItemReader를 사용
+//    @Bean
+//    public fun employeeJobCase2(
+//        jobRepository: JobRepository,
+//        employeeFlowCase2: Step
+//    ): Job {
+//        return JobBuilder("employeeJobCase2", jobRepository)
+//            .start(employeeFlowCase2)
+//            .build()
+//    }
+//
+//    @Bean
+//    public fun employeeFlowCase2(
+//        jobRepository: JobRepository,
+//        platformTransactionManager: PlatformTransactionManager,
+//        employeeRepositoryItemReader: ItemReader<Employee>,
+//        itemWriter: ItemWriter<Employee>
+//    ): Step {
+//        return StepBuilder("employeeStepCase1", jobRepository)
+//            .chunk<Employee, Employee>(1000, platformTransactionManager)
+//            .reader(employeeRepositoryItemReader)
+//            .writer(itemWriter)
+//            .build()
+//    }
+//
+//
+//    @Bean
+//    public fun employeeRepositoryItemReader(employeeRepository: EmployeeRepository): ItemReader<Employee> {
+//        return RepositoryItemReaderBuilder<Employee>()
+//            .name("employeeRepositoryItemReader")
+//            .repository(employeeRepository)
+//            .methodName("findEmployee")
+//            .sorts(mutableMapOf("id" to Sort.Direction.ASC))
+//            .pageSize(10)
+//            .build()
+//    }
 }
