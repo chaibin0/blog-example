@@ -6,11 +6,14 @@ import com.chaibin.batch.config.SampleIncrementer
 import com.chaibin.batch.config.flow.EmployeeStatusItemWriter
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
+import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.Sort
@@ -19,7 +22,8 @@ import org.springframework.transaction.PlatformTransactionManager
 
 // RepositoryItemReader를 사용
 @Configuration
-class EmployeeJob2Config {
+@ConditionalOnProperty(prefix = "spring.batch.job", name = ["name"], havingValue = "employeeTestJob2")
+class EmployeeJob2Config : DefaultBatchConfiguration(){
 
     @Bean
     fun employeeTestJob2(
