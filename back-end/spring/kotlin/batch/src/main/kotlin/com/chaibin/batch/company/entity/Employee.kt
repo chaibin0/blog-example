@@ -36,10 +36,15 @@ class Employee(
         private set
 
     @CreatedDate
+    @Column(name = "CREATED_AT")
     var createdAt: LocalDateTime? = null
         private set
 
     fun changeApplied() {
         this.status = EmployeeStatusType.APPLIED
+    }
+
+    fun changeNotApplied() {
+        this.status = EmployeeStatusType.NOT_APPLIED
     }
 }

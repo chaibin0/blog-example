@@ -19,7 +19,9 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = ["com.chaibin.batch.company.repository"]
+    basePackages = ["com.chaibin.batch.company.repository"],
+    entityManagerFactoryRef = "entityManagerFactory",
+    transactionManagerRef = "transactionManager"
 )
 @EnableTransactionManagement
 @EnableConfigurationProperties(value = [CompanyDatasourceProperties::class])
@@ -44,7 +46,7 @@ class CompanyDataSourceConfig(val companyDatasourceProperties: CompanyDatasource
     fun entityManagerFactory(builder: EntityManagerFactoryBuilder): LocalContainerEntityManagerFactoryBean {
         return builder.dataSource(companyDataSource())
             .packages("com.chaibin.batch.company.entity")
-            .persistenceUnit("companyPerssistenceUnit")
+            .persistenceUnit("companyPersistenceUnit")
             .build()
     }
 
