@@ -46,7 +46,7 @@ class EmployeeJobConfig {
         itemWriter: EmployeeStatusItemWriter
     ): Step {
         return StepBuilder("employeeStepCase1", jobRepository)
-            .chunk<Employee, Employee>(10, transactionManager)
+            .chunk<Employee, Employee>(CHUNK_SIZE, transactionManager)
             .reader(employeeJpaPagingItemReader)
             .writer(itemWriter)
             .build()
@@ -57,9 +57,13 @@ class EmployeeJobConfig {
         return JpaPagingItemReaderBuilder<Employee>()
             .name("employeeJpaPagingItemReader")
             .entityManagerFactory(entityManagerFactory)
-            .pageSize(9)
+            .pageSize(CHUNK_SIZE)
             .queryString("SELECT c FROM Employee c")
             .parameterValues(mapOf())
             .build()
+    }
+
+    companion object {
+        const val CHUNK_SIZE = 9
     }
 }

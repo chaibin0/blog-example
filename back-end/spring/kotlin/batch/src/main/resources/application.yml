@@ -16,10 +16,6 @@ logging:
       springframework:
         boot:
           autoconfigure: ERROR
-      hibernate:
-        type:
-          descriptor:
-            sql: TRACE
     root: INFO
 
 datasource:

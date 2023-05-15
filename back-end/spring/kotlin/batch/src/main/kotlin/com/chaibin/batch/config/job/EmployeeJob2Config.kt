@@ -41,7 +41,7 @@ class EmployeeJob2Config {
         itemWriter: EmployeeStatusItemWriter
     ): Step {
         return StepBuilder("employeeStepCase2", jobRepository)
-            .chunk<Employee, Employee>(9, platformTransactionManager)
+            .chunk<Employee, Employee>(CHUNK_SIZE, platformTransactionManager)
             .reader(employeeRepositoryItemReader)
             .writer(itemWriter)
             .build()
@@ -54,7 +54,11 @@ class EmployeeJob2Config {
             .repository(employeeRepository)
             .methodName("findAllEmployee")
             .sorts(mutableMapOf("id" to Sort.Direction.ASC))
-            .pageSize(9)
+            .pageSize(CHUNK_SIZE)
             .build()
+    }
+
+    companion object {
+        const val CHUNK_SIZE = 9
     }
 }
